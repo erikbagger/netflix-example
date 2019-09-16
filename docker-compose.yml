@@ -1,0 +1,26 @@
+version: "3"
+services:
+  java:
+    build:
+      context: .
+    container_name: netflix-example
+    ports:
+    - "8085:8080"
+    networks:
+    - dev-network
+    depends_on:
+    - "mongodb"
+
+  mongodb:
+    container_name: netflix-example-db
+    image: mongo
+    networks: 
+    - dev-network
+    environment:
+      MONGODB_DATABASE: "netflixdb"
+      MONGODB_USER: "lordbagger"
+      MONGODB_PASSWORD: "544b76f69c875be732cc520f0961692d"
+
+networks:
+  dev-network:
+    driver: bridge
